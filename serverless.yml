@@ -12,7 +12,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: prod
-  region: us-east-1
+  region: us-east-2
   # These environment variables are made available to our functions
   # under process.env.
   environment:
@@ -32,12 +32,15 @@ provider:
     Resource: "arn:aws:dynamodb:us-east-2:*:*"
 
 functions:
-# Defines an HTTP API endpoint that calls the main function in create.js
-# - path: url path is /notes
-# - method: POST request
   create:
     handler: create.main
     events:
     - http:
         path: notes
         method: post
+  get:
+    handler: get.main
+    events:
+    - http:
+        path: notes/{id}
+        method: get
